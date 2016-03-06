@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Zoo</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>res/imie_samica.txt</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/imie_samica.txt</locationURI>
+		</link>
+		<link>
+			<name>res/imie_samiec.txt</name>
+			<type>1</type>
+			<locationURI>PROJECT_LOC/imie_samiec.txt</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>
