@@ -1,12 +1,12 @@
 package com.mzglinicki.zoo;
 
-public enum Speak {
+public enum Sound {
 
-	SPEAK(Constans.SPEAK);
+	SPEAK(Constans.GIVE_SOUND);
 
 	private final String speak;
 
-	private Speak(final String speak) {
+	private Sound(final String speak) {
 		this.speak = speak;
 	}
 

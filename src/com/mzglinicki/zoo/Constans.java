@@ -51,8 +51,6 @@ public class Constans {
 	public static final String RABBIT = "Królik";
 	public static final String RABBITS = "Króliki";
 
-	public static final String LIST = "lista";
-
 	// Features of animals
 	public static final String SEX_MALE = "samiec";
 	public static final String SEX_FEMALE = "samica";
@@ -74,8 +72,11 @@ public class Constans {
 	// Lists
 	public static final String OTHER_OPTION = "Mo¿esz wpisaæ:";
 	public static final String SHOW_LIST_OF_ANIMALS = "lista - aby wypisaæ listê wszystkich mieszkañców ZOO";
-	public static final String HOW_TO_PLAY = "nazwe gatunku (np: tygrysy) - aby dowiedzeæ siê wiêcej o gatunku";
+	public static final String LIST = "lista";
+	public static final String SHOW_SPECIES_INFO = "nazwe gatunku (np: tygrysy) - aby dowiedzeæ siê wiêcej o gatunku";
 	public static final String SPEAK = "daj g³os - aby pos³uchaæ zwierzaka";
+	public static final String GIVE_SOUND = "daj g³os";
+	public static final String PRESS_ENTER = "Aby przejœæ dalej naciœnij dowolny klawisz";
 
 	// Errors
 	public static final String INCORRECT_DATA_FARMAT = "Nie do koñca wiem o co chodzi";
@@ -91,6 +92,13 @@ public class Constans {
 	public static final String BORN = "urodzi³o siê: ";
 	public static final String ANIMALS = " zwierzaków";
 	public static final String DIED = "umar³o: ";
+	public static final String BOUGHT = "Uda³o Ci siê równie¿ kupiæ nowego mieszkañca";
+
+	// Rules
+	public static final String END_CONDITIONS = "zasady - aby poznaæ waruneki zwyciêstwa";
+	public static final String RULES = "zasady";
+	public static final String RULES_TEXT_PART_1 = "Wygrasz je¿eli przez ";
+	public static final String RULES_TEXT_PART_2 = " lat zobêdzie posiada³o mieszkañców,\ni ich poziom zadowolenia bêdzie powy¿ej 30%";
 
 	// External files
 	public static final String NAMES_FOR_MALE = "imie_samiec.txt";

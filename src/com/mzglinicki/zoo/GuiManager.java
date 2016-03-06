@@ -12,12 +12,14 @@ public class GuiManager {
 	private final int LENGTH_OF_ANIMATION = 10;
 	private final int LENGTH_OF_ENDING_ANIMATION = 40;
 	private final int VELOCITY_OF_ANIMATION = 25;
+	private final int BUY_ANIMAL = 100;
 	private final String NEW_LINE = "\n";
 	private final String COLON = ": ";
 	private final char SPACE = ' ';
 	private final char VERTICAL_LINE = '|';
 	private final char DASH = '-';
 	private final char PLUS = '+';
+	private final char TAB = '\t';
 
 	private GuiManager() {
 	}
@@ -60,13 +62,13 @@ public class GuiManager {
 	}
 
 	public void printAnimationAfterWin() {
-		
+
 		String charsPart1 = "|/-\\";
 		String charsPart2 = "-\\|";
-		
+
 		int id = 0;
 		for (int i = 0; i < LENGTH_OF_ENDING_ANIMATION; i++) {
-			
+
 			System.out.print(charsPart1.charAt(id));
 			try {
 				Thread.sleep(VELOCITY_OF_ANIMATION);
@@ -125,8 +127,15 @@ public class GuiManager {
 	public void printOtherOptions() {
 
 		System.out.println(NEW_LINE + Constans.OTHER_OPTION);
-		System.out.println(Constans.SHOW_LIST_OF_ANIMALS);
-		System.out.println(Constans.HOW_TO_PLAY);
+		System.out.println(TAB + Constans.SHOW_LIST_OF_ANIMALS);
+		System.out.println(TAB + Constans.SHOW_SPECIES_INFO);
+		System.out.println(TAB + Constans.END_CONDITIONS);
+	}
+
+	public void printPlayActivities() {
+		System.out.println(NEW_LINE + Constans.OTHER_OPTION);
+		System.out.println(TAB + Constans.SPEAK);
+		System.out.println(Constans.PRESS_ENTER);
 	}
 
 	public void printListOfAnimals() {
@@ -236,7 +245,7 @@ public class GuiManager {
 		animal.getInfo();
 	}
 
-	public void showSummary(int babiesCounter, int corpseCounter) {
+	public void showSummary(int babiesCounter, int corpseCounter, int boughtAnimal) {
 
 		animationAfterAction();
 		System.out.println();
@@ -246,6 +255,9 @@ public class GuiManager {
 		System.out.println(Constans.IN_LAST_MONTH);
 		System.out.println(Constans.BORN + babiesCounter + Constans.ANIMALS);
 		System.out.println(Constans.DIED + corpseCounter);
+		if (boughtAnimal == BUY_ANIMAL) {
+			System.out.println(Constans.BOUGHT);
+		}
 		System.out.println();
 	}
 
@@ -260,4 +272,15 @@ public class GuiManager {
 		System.out.println(Constans.FAVORITE_FOOD + type);
 
 	}
+
+	public void printAnimalSound(Species species) {
+		System.out.println(animalManager.getMapOfSpieces().get(species).get(0).getSound());
+	}
+
+	public void printRules() {
+
+		System.out.println(Constans.RULES_TEXT_PART_1 + animalManager.getLengthOfGama() + Constans.RULES_TEXT_PART_2);
+
+	}
+
 }

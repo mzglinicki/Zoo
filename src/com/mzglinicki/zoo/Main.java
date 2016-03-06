@@ -4,8 +4,6 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		final int LENGTH_OF_GAME = 20;
-
 		GuiManager guiManager = GuiManager.getInstance();
 
 		guiManager.printWelcomeGui();
@@ -20,7 +18,7 @@ public class Main {
 		do {
 			animalCreator.selectSpecies();
 
-		} while (!animalCreator.getMapOfSpieces().isEmpty() && animalCreator.getNumOfYear() < LENGTH_OF_GAME);
+		} while (!animalCreator.getMapOfSpieces().isEmpty() && animalCreator.getNumOfYear() < animalCreator.getLengthOfGama());
 
 		if (animalCreator.getMapOfSpieces().isEmpty()) {
 			guiManager.printLoseInfo();

@@ -1,5 +1,6 @@
 package com.mzglinicki.zoo;
 
+import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -17,6 +18,7 @@ public class AnimalsManager {
 	private final String DELIMITER = ",";
 	private final int MAX_AMOUNT_OF_ANIMALS = 400;
 	private final int MIN_AMOUNT_OF_ANIMALS = 1;
+	private final int LENGTH_OF_GAME = 20;
 	private static AnimalsManager animalsManager = null;
 	private static GuiManager guiManager = GuiManager.getInstance();
 
@@ -27,6 +29,7 @@ public class AnimalsManager {
 	private List<String> maleNames = new ArrayList<String>();
 	private List<String> femaleNames = new ArrayList<String>();
 	private int numOfYear = 0;
+	
 
 	public static AnimalsManager getInstance() {
 		if (animalsManager == null) {
@@ -42,8 +45,13 @@ public class AnimalsManager {
 	public int changeNumOfYear() {
 		return numOfYear++;
 	}
-	public int getNumOfYear(){
+
+	public int getNumOfYear() {
 		return numOfYear;
+	}
+	
+	public int getLengthOfGama(){
+		return LENGTH_OF_GAME;
 	}
 
 	public List<String> readFile(String fileName) {
@@ -162,17 +170,25 @@ public class AnimalsManager {
 				availableActivities(returnKeyToSpeciesList(num));
 				condition = false;
 			} catch (NumberFormatException uncorrectFormat) {
-				if (input.equals(com.mzglinicki.zoo.List.LIST.getList())) {
-					guiManager.printListOfAnimals();
-				} else if (input.equals(Speak.SPEAK.getSpeak())) {
 
-				} else {
-					getInfoAboutSpecies(input);
-				}
+				followOptionalChoice(input);
+
 			} catch (ArrayIndexOutOfBoundsException e) {
 				guiManager.printTooLowNumberOfAnimal();
 			}
 		} while (condition);
+	}
+
+	private void followOptionalChoice(String input) {
+
+		if (input.equals(InputOptions.LIST.getValue())) {
+			guiManager.printListOfAnimals();
+		} else if(input.equals(InputOptions.RULES.getValue())){
+			guiManager.printRules();
+		} else {
+			getInfoAboutSpecies(input);
+		} 
+
 	}
 
 	public void availableActivities(Species keyToSpeciesList) {
@@ -207,11 +223,25 @@ public class AnimalsManager {
 
 	}
 
-	public void play(Animal animal) {
+	public void playForAnimal(Animal animal) {
 
 		RandomEvents event = new RandomEvents();
 
 		event.pregnancy(animal);
+	}
+
+	public void playForSpecies(Species species) {
+
+		guiManager.printPlayActivities();
+		boolean condition = true;
+		do{
+			String input = userInput.nextLine();
+			if (input.equals(Sound.SPEAK.getSpeak())) {
+				guiManager.printAnimalSound(species);
+			} else if (input.isEmpty()){
+				condition = false;
+			}
+		} while(condition);
 	}
 
 	public void buyAnimal(Species species) {
@@ -288,7 +318,7 @@ public class AnimalsManager {
 				}
 			}
 		}
-		guiManager.showSummary(babiesCounter, corpseCounter);
+		guiManager.showSummary(babiesCounter, corpseCounter, userInput);
 	}
 
 	private void makeActivityOnAnimal(Activities activity, Animal animal, int userInput) {
@@ -300,10 +330,10 @@ public class AnimalsManager {
 			walk(animal);
 			break;
 		case LEISURE:
-			play(animal);
+			playForAnimal(animal);
 			break;
 		case BUY_ANIMAL:
-			buyAnimal(animal.getSpecies());
+			break;
 		}
 	}
 }
