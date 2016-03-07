@@ -3,11 +3,17 @@ package com.mzglinicki.zoo;
 public class Constans {
 
 	// Main panel
+	public static final String CHOOSE_OPTION = "Wybierz jedn¹ z mo¿liwoœci:";
+	public static final String NEW_GAME = "Nowa gra";
+	public static final String LOAD_LAST_GAME = "Wczytaj ostatni¹ grê";
+	public static final String RULES = "Zasady gry";
+	public static final String CLOSE = "Zamknij";
 
 	public static final String WELCOME_TEXT = "Witamy w Zoo!";
 	public static final String DATA_TEXT = "Mamy dzisiej: ";
 
 	public static final String NUMBER_OF_YEAR = "ROK: ";
+	public static final String ANIMAL_SATISFACTION = "Zadowolienie mieszkañców: ";
 	public static final String AVAILABLE_SPECIES = "W naszym ZOO mamy miejsce dla nastêpuj¹cych gatunków: ";
 	public static final String AMOUNT_OF_ANIMALS_TEXT = "Nasze ZOO posiada ";
 	public static final String AMOUNT_OF_ANIMALS_PART2 = " mieszkañców!";
@@ -77,6 +83,10 @@ public class Constans {
 	public static final String SPEAK = "daj g³os - aby pos³uchaæ zwierzaka";
 	public static final String GIVE_SOUND = "daj g³os";
 	public static final String PRESS_ENTER = "Aby przejœæ dalej naciœnij dowolny klawisz";
+	public static final String MAIN_PANEL = "zakoñcz";
+	public static final String PLAY_MAIN_PANEL = "zakoñcz - aby zakoñczyæ grê";
+	public static final String SAVE = "zapisz";
+	public static final String SAVE_TEXT = "zapisz - aby zapisaæ grê";
 
 	// Errors
 	public static final String INCORRECT_DATA_FARMAT = "Nie do koñca wiem o co chodzi";
@@ -95,10 +105,9 @@ public class Constans {
 	public static final String BOUGHT = "Uda³o Ci siê równie¿ kupiæ nowego mieszkañca";
 
 	// Rules
-	public static final String END_CONDITIONS = "zasady - aby poznaæ waruneki zwyciêstwa";
-	public static final String RULES = "zasady";
+
 	public static final String RULES_TEXT_PART_1 = "Wygrasz je¿eli przez ";
-	public static final String RULES_TEXT_PART_2 = " lat zobêdzie posiada³o mieszkañców,\ni ich poziom zadowolenia bêdzie powy¿ej 30%";
+	public static final String RULES_TEXT_PART_2 = " lat ZOO bêdzie posiada³o mieszkañców,\ni ich poziom zadowolenia bêdzie powy¿ej 30%";
 
 	// External files
 	public static final String NAMES_FOR_MALE = "imie_samiec.txt";

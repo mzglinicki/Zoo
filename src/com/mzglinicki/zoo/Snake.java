@@ -4,13 +4,15 @@ package com.mzglinicki.zoo;
 public class Snake extends Animal implements Swimming {
 
 	private static final int SNAKE_SPEED = 6;
-	private static final int VALUE_OF_FOOD = 10;
-	private static final int MAX_INIT_WEIGHT_ADULT = 70;
-	private static final int MAX_INIT_WEIGHT_CHILD = 20;
-	private static final int MAX_AGES = 50;
-	private static final int BABY_AGE = 1;
-	private static final int MAX_PRAGNANCY_TIME = 2;
-	private static final int MIN_WEIGHT = 2;
+	private final int VALUE_OF_FOOD = 10;
+	private final int MAX_INIT_WEIGHT_ADULT = 70;
+	private final int MAX_INIT_WEIGHT_CHILD = 20;
+	private final int MAX_AGES = 50;
+	private final int BABY_AGE = 1;
+	private final int MAX_PRAGNANCY_TIME = 2;
+	private final int MIN_WEIGHT = 2;
+	private final int SATISFACTION_POINTER_1 = 20;
+	private final int SATISFACTION_POINTER_2 = 100;
 
 	private int depthOfswimming = 3;
 	private int noOfyearsWithoutFood = 1;
@@ -108,5 +110,10 @@ public class Snake extends Animal implements Swimming {
 	public void setPregnancy(boolean pregnancy, int age) {
 		this.pregnancy = pregnancy;
 		ageOfPragnancyStart = age;
+	}
+
+	@Override
+	public int getAnimalSatisfaction() {
+		return weight*SATISFACTION_POINTER_2/(MIN_WEIGHT+SATISFACTION_POINTER_1);
 	}
 }

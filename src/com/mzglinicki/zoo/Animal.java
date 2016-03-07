@@ -57,6 +57,8 @@ public abstract class Animal implements Comparable<Animal> {
 	public abstract Animal updateAge();
 
 	public abstract void setPregnancy(boolean pregnancy, int age);
+	
+	public abstract int getAnimalSatisfaction();
 
 	public boolean isPregnancy() {
 		return pregnancy;

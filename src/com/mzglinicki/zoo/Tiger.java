@@ -10,6 +10,8 @@ public class Tiger extends Animal {
 	private final int MAX_AGES = 80;
 	private final int MAX_PRAGNANCY_TIME = 3;
 	private final int BABY_AGE = 1;
+	private final int SATISFACTION_POINTER_1 = 20;
+	private final int SATISFACTION_POINTER_2 = 100;
 
 	private int noOfyearsWithoutFood = 1;
 	private int ageOfPragnancyStart;
@@ -99,5 +101,10 @@ public class Tiger extends Animal {
 	public void setPregnancy(boolean pregnancy, int age) {
 		this.pregnancy = pregnancy;
 		ageOfPragnancyStart = age;
+	}
+
+	@Override
+	public int getAnimalSatisfaction() {
+		return weight * SATISFACTION_POINTER_2 / (MIN_WEIGHT + SATISFACTION_POINTER_1);
 	}
 }

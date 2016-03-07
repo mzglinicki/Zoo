@@ -19,17 +19,19 @@ public class AnimalsManager {
 	private final int MAX_AMOUNT_OF_ANIMALS = 400;
 	private final int MIN_AMOUNT_OF_ANIMALS = 1;
 	private final int LENGTH_OF_GAME = 20;
+	private final int MIN_SATISFACTION = 30;
 	private static AnimalsManager animalsManager = null;
 	private static GuiManager guiManager = GuiManager.getInstance();
+	private static GameManager gameManager = GameManager.getInstance();
 
 	private Scanner userInput = new Scanner(System.in);
 	private Random generator = new Random();
 	private Map<Species, List<Animal>> mapOfSpieces = new HashMap<>();
 
-	private List<String> maleNames = new ArrayList<String>();
+	private List<String> maleNames = new ArrayList<String>(); 
 	private List<String> femaleNames = new ArrayList<String>();
 	private int numOfYear = 0;
-	
+	private int animalSatisfaction = 0;
 
 	public static AnimalsManager getInstance() {
 		if (animalsManager == null) {
@@ -49,12 +51,17 @@ public class AnimalsManager {
 	public int getNumOfYear() {
 		return numOfYear;
 	}
-	
-	public int getLengthOfGama(){
+
+	public int getLengthOfGama() {
 		return LENGTH_OF_GAME;
 	}
 
-	public List<String> readFile(String fileName) {
+	public int getMinimalSatisfaction() {
+		return MIN_SATISFACTION;
+	}
+
+	public List<String> readFile(String fileName) { // czy przerzuciæ do
+													// gameManagera?
 
 		List<String> listOfNames = new ArrayList<String>();
 
@@ -181,13 +188,15 @@ public class AnimalsManager {
 
 	private void followOptionalChoice(String input) {
 
-		if (input.equals(InputOptions.LIST.getValue())) {
+		if (input.equals(GameInputOptions.LIST.getValue())) {
 			guiManager.printListOfAnimals();
-		} else if(input.equals(InputOptions.RULES.getValue())){
-			guiManager.printRules();
+		} else if (input.equals(GameInputOptions.MAIN_PANEL.getValue())) {
+			gameManager.selectMainManuOption();
+		} else if (input.equals(GameInputOptions.SAVE.getValue())) {
+			System.out.println("jeszcze nei!");
 		} else {
 			getInfoAboutSpecies(input);
-		} 
+		}
 
 	}
 
@@ -234,14 +243,14 @@ public class AnimalsManager {
 
 		guiManager.printPlayActivities();
 		boolean condition = true;
-		do{
+		do {
 			String input = userInput.nextLine();
 			if (input.equals(Sound.SPEAK.getSpeak())) {
 				guiManager.printAnimalSound(species);
-			} else if (input.isEmpty()){
+			} else if (input.isEmpty()) {
 				condition = false;
 			}
-		} while(condition);
+		} while (condition);
 	}
 
 	public void buyAnimal(Species species) {
@@ -316,6 +325,10 @@ public class AnimalsManager {
 					listOfAnimal.remove(i);
 					corpseCounter++;
 				}
+				animalSatisfaction += animal.getAnimalSatisfaction();
+			}
+			if (!listOfAnimal.isEmpty()) {
+				animalSatisfaction /= listOfAnimal.size();
 			}
 		}
 		guiManager.showSummary(babiesCounter, corpseCounter, userInput);
@@ -335,5 +348,9 @@ public class AnimalsManager {
 		case BUY_ANIMAL:
 			break;
 		}
+	}
+
+	public int getAnimalSatisfaction() {
+		return animalSatisfaction;
 	}
 }

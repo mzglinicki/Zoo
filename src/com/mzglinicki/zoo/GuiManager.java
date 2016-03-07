@@ -20,6 +20,7 @@ public class GuiManager {
 	private final char DASH = '-';
 	private final char PLUS = '+';
 	private final char TAB = '\t';
+	public final char PERCENT = '%';
 
 	private GuiManager() {
 	}
@@ -49,7 +50,9 @@ public class GuiManager {
 	}
 
 	public void printYearCounter() {
-		System.out.println(NEW_LINE + Constans.NUMBER_OF_YEAR + animalManager.changeNumOfYear());
+		String printYearFormat = "\n\n%s%-5d%s%d%s\n";
+		System.out.printf(printYearFormat, Constans.NUMBER_OF_YEAR, animalManager.changeNumOfYear(), Constans.ANIMAL_SATISFACTION,
+				animalManager.getAnimalSatisfaction(), PERCENT);
 	}
 
 	public void createDash() {
@@ -59,6 +62,15 @@ public class GuiManager {
 			System.out.print(DASH);
 		}
 		System.out.print(VERTICAL_LINE);
+	}
+
+	public void printMainMenu() {
+		System.out.printf("\n\n %s\n", Constans.CHOOSE_OPTION);
+		System.out.printf(" %-2d%s\n", MainManuOptions.NEW_GAME.ordinal(), Constans.NEW_GAME);
+		System.out.printf(" %-2d%s\n", MainManuOptions.LOAD_LAST_GAME.ordinal(), Constans.LOAD_LAST_GAME);
+		System.out.printf(" %-2d%s\n", MainManuOptions.RULES.ordinal(), Constans.RULES);
+		System.out.printf(" %-2d%s\n", MainManuOptions.CLOSE.ordinal(), Constans.CLOSE);
+
 	}
 
 	public void printAnimationAfterWin() {
@@ -129,7 +141,8 @@ public class GuiManager {
 		System.out.println(NEW_LINE + Constans.OTHER_OPTION);
 		System.out.println(TAB + Constans.SHOW_LIST_OF_ANIMALS);
 		System.out.println(TAB + Constans.SHOW_SPECIES_INFO);
-		System.out.println(TAB + Constans.END_CONDITIONS);
+		System.out.println(TAB + Constans.SAVE_TEXT);
+		System.out.println(TAB + Constans.PLAY_MAIN_PANEL);
 	}
 
 	public void printPlayActivities() {
