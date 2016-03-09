@@ -10,8 +10,6 @@ public class Tiger extends Animal {
 	private final int MAX_AGES = 80;
 	private final int MAX_PRAGNANCY_TIME = 3;
 	private final int BABY_AGE = 1;
-	private final int SATISFACTION_POINTER_1 = 20;
-	private final int SATISFACTION_POINTER_2 = 100;
 
 	private int noOfyearsWithoutFood = 1;
 	private int ageOfPragnancyStart;
@@ -105,6 +103,13 @@ public class Tiger extends Animal {
 
 	@Override
 	public int getAnimalSatisfaction() {
-		return weight * SATISFACTION_POINTER_2 / (MIN_WEIGHT + SATISFACTION_POINTER_1);
+		int satisfaction_pointer_1 = 20;
+		int satisfaction_pointer_2 = 100;
+
+		if (weight > MIN_WEIGHT + satisfaction_pointer_1) {
+			return satisfaction_pointer_2;
+		} else {
+			return (weight * satisfaction_pointer_2) / (MIN_WEIGHT + satisfaction_pointer_1);
+		}
 	}
 }

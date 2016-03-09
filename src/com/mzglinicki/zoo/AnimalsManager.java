@@ -1,6 +1,5 @@
 package com.mzglinicki.zoo;
 
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -28,10 +27,10 @@ public class AnimalsManager {
 	private Random generator = new Random();
 	private Map<Species, List<Animal>> mapOfSpieces = new HashMap<>();
 
-	private List<String> maleNames = new ArrayList<String>(); 
+	private List<String> maleNames = new ArrayList<String>();
 	private List<String> femaleNames = new ArrayList<String>();
 	private int numOfYear = 0;
-	private int animalSatisfaction = 0;
+	private int animalSatisfaction;
 
 	public static AnimalsManager getInstance() {
 		if (animalsManager == null) {
@@ -44,12 +43,16 @@ public class AnimalsManager {
 		return mapOfSpieces;
 	}
 
-	public int changeNumOfYear() {
-		return numOfYear++;
+	public void setMapOfSpieces(Map<Species, List<Animal>> loadHashMap) {
+		mapOfSpieces = loadHashMap;
 	}
 
 	public int getNumOfYear() {
 		return numOfYear;
+	}
+
+	public void setNumOfYear(int loadYear) {
+		numOfYear = loadYear;
 	}
 
 	public int getLengthOfGama() {
@@ -60,8 +63,7 @@ public class AnimalsManager {
 		return MIN_SATISFACTION;
 	}
 
-	public List<String> readFile(String fileName) { // czy przerzuciæ do
-													// gameManagera?
+	public List<String> readFile(String fileName) {
 
 		List<String> listOfNames = new ArrayList<String>();
 
@@ -193,11 +195,10 @@ public class AnimalsManager {
 		} else if (input.equals(GameInputOptions.MAIN_PANEL.getValue())) {
 			gameManager.selectMainManuOption();
 		} else if (input.equals(GameInputOptions.SAVE.getValue())) {
-			System.out.println("jeszcze nei!");
+			gameManager.writeDataToFile(mapOfSpieces, GameInputOptions.WRITE_DATA_SER.getValue(), getNumOfYear(), getAnimalSatisfaction());
 		} else {
 			getInfoAboutSpecies(input);
 		}
-
 	}
 
 	public void availableActivities(Species keyToSpeciesList) {
@@ -300,6 +301,7 @@ public class AnimalsManager {
 
 	public void update(Activities activity, Species keyToSpeciesList, int userInput) {
 
+		int satisfaction = 0;
 		int babiesCounter = 0;
 		int corpseCounter = 0;
 
@@ -325,12 +327,12 @@ public class AnimalsManager {
 					listOfAnimal.remove(i);
 					corpseCounter++;
 				}
-				animalSatisfaction += animal.getAnimalSatisfaction();
-			}
-			if (!listOfAnimal.isEmpty()) {
-				animalSatisfaction /= listOfAnimal.size();
+				satisfaction += animal.getAnimalSatisfaction();
 			}
 		}
+		satisfaction /= (getAmountOfAnimal());
+		setAnimalSatisfaction(satisfaction);
+		numOfYear++;
 		guiManager.showSummary(babiesCounter, corpseCounter, userInput);
 	}
 
@@ -352,5 +354,19 @@ public class AnimalsManager {
 
 	public int getAnimalSatisfaction() {
 		return animalSatisfaction;
+	}
+
+	public void setAnimalSatisfaction(int loadAnimalSatisfaction) {
+		animalSatisfaction = loadAnimalSatisfaction;
+	}
+
+	public int getAmountOfAnimal() {
+
+		int counter = 0;
+
+		for (List<Animal> list : mapOfSpieces.values()) {
+			counter += list.size();
+		}
+		return counter;
 	}
 }

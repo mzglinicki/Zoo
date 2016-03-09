@@ -87,6 +87,8 @@ public class Constans {
 	public static final String PLAY_MAIN_PANEL = "zakoñcz - aby zakoñczyæ grê";
 	public static final String SAVE = "zapisz";
 	public static final String SAVE_TEXT = "zapisz - aby zapisaæ grê";
+	public static final String DATA_SER = "data.ser";
+	public static final String DATA_ARE_SAVED = "Dane o ZOO zosta³y zapisane";
 
 	// Errors
 	public static final String INCORRECT_DATA_FARMAT = "Nie do koñca wiem o co chodzi";

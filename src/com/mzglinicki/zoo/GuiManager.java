@@ -13,6 +13,7 @@ public class GuiManager {
 	private final int LENGTH_OF_ENDING_ANIMATION = 40;
 	private final int VELOCITY_OF_ANIMATION = 25;
 	private final int BUY_ANIMAL = 100;
+	private final int ONE_ANIMAL = 1;
 	private final String NEW_LINE = "\n";
 	private final String COLON = ": ";
 	private final char SPACE = ' ';
@@ -51,7 +52,7 @@ public class GuiManager {
 
 	public void printYearCounter() {
 		String printYearFormat = "\n\n%s%-5d%s%d%s\n";
-		System.out.printf(printYearFormat, Constans.NUMBER_OF_YEAR, animalManager.changeNumOfYear(), Constans.ANIMAL_SATISFACTION,
+		System.out.printf(printYearFormat, Constans.NUMBER_OF_YEAR, animalManager.getNumOfYear(), Constans.ANIMAL_SATISFACTION,
 				animalManager.getAnimalSatisfaction(), PERCENT);
 	}
 
@@ -65,11 +66,15 @@ public class GuiManager {
 	}
 
 	public void printMainMenu() {
-		System.out.printf("\n\n %s\n", Constans.CHOOSE_OPTION);
-		System.out.printf(" %-2d%s\n", MainManuOptions.NEW_GAME.ordinal(), Constans.NEW_GAME);
-		System.out.printf(" %-2d%s\n", MainManuOptions.LOAD_LAST_GAME.ordinal(), Constans.LOAD_LAST_GAME);
-		System.out.printf(" %-2d%s\n", MainManuOptions.RULES.ordinal(), Constans.RULES);
-		System.out.printf(" %-2d%s\n", MainManuOptions.CLOSE.ordinal(), Constans.CLOSE);
+
+		String optionsTextformatter = "\n\n %s\n";
+		String optionFormatter = " %-2d%s\n";
+
+		System.out.printf(optionsTextformatter, Constans.CHOOSE_OPTION);
+		System.out.printf(optionFormatter, MainManuOptions.NEW_GAME.ordinal(), Constans.NEW_GAME);
+		System.out.printf(optionFormatter, MainManuOptions.LOAD_LAST_GAME.ordinal(), Constans.LOAD_LAST_GAME);
+		System.out.printf(optionFormatter, MainManuOptions.RULES.ordinal(), Constans.RULES);
+		System.out.printf(optionFormatter, MainManuOptions.CLOSE.ordinal(), Constans.CLOSE);
 
 	}
 
@@ -95,13 +100,10 @@ public class GuiManager {
 	public void printInfoAnimalsAmount() {
 
 		StringBuffer text = new StringBuffer();
-		int counter = 0;
 
-		for (List<Animal> list : animalManager.getMapOfSpieces().values()) {
-			counter += list.size();
-		}
+		int counter = animalManager.getAmountOfAnimal();
 
-		if (counter > 1) {
+		if (counter > ONE_ANIMAL) {
 
 			System.out.println(text.append(Constans.AMOUNT_OF_ANIMALS_TEXT).append(counter).append(Constans.AMOUNT_OF_ANIMALS_PART2));
 
@@ -274,6 +276,12 @@ public class GuiManager {
 		System.out.println();
 	}
 
+	public void printHeadlineAfterLoad() {
+		printYearCounter();
+		System.out.println();
+		printInfoAnimalsAmount();
+	}
+
 	public void printTooLowNumberOfAnimal() {
 		System.out.println(Constans.TOO_LOW_NUMBER);
 	}
@@ -293,7 +301,9 @@ public class GuiManager {
 	public void printRules() {
 
 		System.out.println(Constans.RULES_TEXT_PART_1 + animalManager.getLengthOfGama() + Constans.RULES_TEXT_PART_2);
-
 	}
 
+	public void printSavedInfo() {
+		System.out.println("Dane o ZOO zosta³y zapisane");
+	}
 }

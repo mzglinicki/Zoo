@@ -1,11 +1,12 @@
 package com.mzglinicki.zoo;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public abstract class Animal implements Comparable<Animal> {
+public abstract class Animal implements Comparable<Animal>, Serializable {
 
 	private final int MAX_INIT_AGE = 30;
 	protected Random generator = new Random();
