@@ -15,11 +15,11 @@ public class Giraffe extends Animal {
 	private int ageOfPragnancyStart;
 
 	public Giraffe() {
-		super(Species.GIRAFFE, GIRAFFE_SPEED, Constans.GIRAFFE_SOUND, Food.LEAVES);
+		super(Species.GIRAFFE, GIRAFFE_SPEED, Constants.GIRAFFE_SOUND, Food.LEAVES);
 	}
 
 	private Giraffe(int age) {
-		super(Species.GIRAFFE, GIRAFFE_SPEED, Constans.GIRAFFE_SOUND, Food.LEAVES);
+		super(Species.GIRAFFE, GIRAFFE_SPEED, Constants.GIRAFFE_SOUND, Food.LEAVES);
 		this.age = age;
 	}
 
@@ -39,7 +39,7 @@ public class Giraffe extends Animal {
 
 	@Override
 	public String getSound() {
-		return Constans.GIRAFFE_SOUND;
+		return Constants.GIRAFFE_SOUND;
 	}
 
 	@Override
@@ -53,7 +53,7 @@ public class Giraffe extends Animal {
 	}
 
 	@Override
-	public void setWeightAftrForage(Food type) {
+	public void setWeightAfterForage(Food type) {
 		if (type == getFood()) {
 			this.weight = this.getWeight() + VALUE_OF_FOOD;
 		}

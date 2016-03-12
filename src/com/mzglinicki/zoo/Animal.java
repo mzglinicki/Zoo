@@ -47,7 +47,7 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 
 	public abstract void getInfo();
 
-	public abstract void setWeightAftrForage(Food typeOfFood);
+	public abstract void setWeightAfterForage(Food typeOfFood);
 
 	public abstract int decreaseWeightWithoutFood(boolean areWeEating);
 

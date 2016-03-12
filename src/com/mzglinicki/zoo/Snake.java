@@ -16,11 +16,11 @@ public class Snake extends Animal implements Swimming {
 	private int ageOfPragnancyStart;
 
 	public Snake() {
-		super(Species.SNAKE, SNAKE_SPEED, Constans.SNAKE_SOUND, Food.MAUSE);
+		super(Species.SNAKE, SNAKE_SPEED, Constants.SNAKE_SOUND, Food.MAUSE);
 	}
 
 	private Snake(int age) {
-		super(Species.SNAKE, SNAKE_SPEED, Constans.SNAKE_SOUND, Food.MAUSE);
+		super(Species.SNAKE, SNAKE_SPEED, Constants.SNAKE_SOUND, Food.MAUSE);
 		this.age = age;
 	}
 
@@ -44,7 +44,7 @@ public class Snake extends Animal implements Swimming {
 
 	@Override
 	public String getSound() {
-		return Constans.SNAKE_SOUND;
+		return Constants.SNAKE_SOUND;
 	}
 
 	@Override
@@ -64,7 +64,7 @@ public class Snake extends Animal implements Swimming {
 	}
 
 	@Override
-	public void setWeightAftrForage(Food type) {
+	public void setWeightAfterForage(Food type) {
 
 		if (type == getFood()) {
 			this.weight = this.getWeight() + VALUE_OF_FOOD;

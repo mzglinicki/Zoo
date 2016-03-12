@@ -1,196 +1,204 @@
 package com.mzglinicki.zoo;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+import sun.audio.AudioData;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+import sun.audio.ContinuousAudioDataStream;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.json.JettisonMappedXmlDriver;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 public class ExternalFilesManager {
 
-	private GuiManager guiManager = GuiManager.getInstance();
-	private AnimalsManager animalCreator = AnimalsManager.getInstance();
-	
-	private final String DELIMITER = ",";
-	
-	private Map<Sex, List<String>> mapOfNames = new HashMap<>();
-	
-	private int numOfYear = 0;
-	private int animalsSatisfaction = 0;
-	
-	private static ExternalFilesManager fileManager = null;
+    private GuiManager guiManager = GuiManager.getInstance();
 
-	private ExternalFilesManager() {
-	}
+    private final String DELIMITER = ",";
 
-	public Map<Sex, List<String>> getMapOfNames() {
-		return mapOfNames;
-	}
+    private Map<Sex, List<String>> mapOfNames = new HashMap<>();
 
-	public static ExternalFilesManager getInstance() {
-		if (fileManager == null) {
-			fileManager = new ExternalFilesManager();
-		}
-		return fileManager;
-	}
+    private int numOfYear = 0;
+    private int animalsSatisfaction = 0;
 
-	public void writeDataToFile(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite, int year, int satisfaction) {
+    private static ExternalFilesManager fileManager = null;
 
-		List<Integer> data = new ArrayList<Integer>();
+    private ExternalFilesManager() {
+    }
 
-		data.add(year);
-		data.add(satisfaction);
+    public Map<Sex, List<String>> getMapOfNames() {
+        return mapOfNames;
+    }
 
-		try {
+    public static ExternalFilesManager getInstance() {
+        if (fileManager == null) {
+            fileManager = new ExternalFilesManager();
+        }
+        return fileManager;
+    }
 
-			FileOutputStream fileStream = new FileOutputStream(fileToWrite);
+    public void writeDataToFile(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite, int year, int satisfaction) {
 
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+        List<Integer> data = new ArrayList<>();
 
-			objectStream.writeObject(data);
+        data.add( year );
+        data.add( satisfaction );
 
-			objectStream.writeObject(mapOfSpieces);
+        try {
 
-			objectStream.close();
+            FileOutputStream fileStream = new FileOutputStream( fileToWrite );
 
-			fileStream.close();
+            ObjectOutputStream objectStream = new ObjectOutputStream( fileStream );
 
-			guiManager.printSavedInfo();
+            objectStream.writeObject( data );
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            objectStream.writeObject( mapOfSpieces );
 
-	@SuppressWarnings("unchecked")
-	public Map<Species, List<Animal>> readData(String fileName) {
+            objectStream.close();
 
-		List<Integer> data = new ArrayList<Integer>();
+            fileStream.close();
 
-		Map<Species, List<Animal>> loadHashMap = null;
+            guiManager.printSavedInfo();
 
-		try {
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
-			FileInputStream fileInput = new FileInputStream(fileName);
+    @SuppressWarnings("unchecked")
+    public Map<Species, List<Animal>> readData(String fileName) {
 
-			ObjectInputStream objectStream = new ObjectInputStream(fileInput);
+        List<Integer> data = new ArrayList<Integer>();
 
-			try {
+        Map<Species, List<Animal>> loadHashMap = null;
 
-				data = (List<Integer>) objectStream.readObject();
+        try {
 
-				loadHashMap = (HashMap<Species, List<Animal>>) objectStream.readObject();
+            FileInputStream fileInput = new FileInputStream( fileName );
 
-				
-				fileInput.close();
+            ObjectInputStream objectStream = new ObjectInputStream( fileInput );
 
-				numOfYear = data.get(0);
-				animalsSatisfaction = data.get(1);
+            try {
 
-				return loadHashMap;
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-			objectStream.close();
+                data = (List<Integer>) objectStream.readObject();
 
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
+                loadHashMap = (HashMap<Species, List<Animal>>) objectStream.readObject();
 
-	public List<String> readNames(String fileName) {
+                fileInput.close();
 
-		List<String> listOfNames = new ArrayList<String>();
+                numOfYear = data.get( 0 );
+                animalsSatisfaction = data.get( 1 );
 
-		try {
-			BufferedReader namesForMale = new BufferedReader(new FileReader(fileName));
+                return loadHashMap;
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            objectStream.close();
 
-			String line = namesForMale.readLine();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
-			while (line != null) {
-				String[] namesLine = line.split(DELIMITER);
-				for (String name : namesLine) {
-					listOfNames.add(name.trim());
-				}
-				line = namesForMale.readLine();
-			}
-			namesForMale.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return listOfNames;
-	}
-	
-	public void loadNamas() {
-		
-		ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
-		
-		mapOfNames.put(Sex.FEMALE, fileManager.readNames(Sex.FEMALE.getNames()));
-		mapOfNames.put(Sex.MALE, fileManager.readNames(Sex.MALE.getNames()));
-	}
+    public List<String> readNames(String fileName) {
 
-	public void writeDataToXML(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite){
-		
-		XStream xstream = new XStream(new StaxDriver());
-		String xml = xstream.toXML(mapOfSpieces);
-		
-		try {
+        List<String> listOfNames = new ArrayList<String>();
 
-			FileOutputStream fileStream = new FileOutputStream(fileToWrite);
+        try {
+            BufferedReader namesForMale = new BufferedReader( new FileReader( fileName ) );
 
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+            String line = namesForMale.readLine();
 
-			objectStream.writeObject(xml);
+            while (line != null) {
+                String[] namesLine = line.split( DELIMITER );
+                for (String name : namesLine) {
+                    listOfNames.add( name.trim() );
+                }
+                line = namesForMale.readLine();
+            }
+            namesForMale.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return listOfNames;
+    }
 
-			objectStream.close();
+    public void loadNamas() {
 
-			fileStream.close();
+        ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
 
-			guiManager.printSavedInfoToXML();
+        mapOfNames.put( Sex.FEMALE, fileManager.readNames( Sex.FEMALE.getNames() ) );
+        mapOfNames.put( Sex.MALE, fileManager.readNames( Sex.MALE.getNames() ) );
+    }
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+    public void writeDataToXML(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite) {
 
-	public void writeDataToJson(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite){
-		
-		XStream xstream = new XStream(new JettisonMappedXmlDriver());
-		xstream.setMode(XStream.NO_REFERENCES);
-		String xml = xstream.toXML(mapOfSpieces);
-		
-		try {
+        XStream xstream = new XStream( new StaxDriver() );
+        String xml = xstream.toXML( mapOfSpieces );
 
-			FileOutputStream fileStream = new FileOutputStream(fileToWrite);
+        try {
 
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
+            FileOutputStream fileStream = new FileOutputStream( fileToWrite );
 
-			objectStream.writeObject(xml);
+            ObjectOutputStream objectStream = new ObjectOutputStream( fileStream );
 
-			objectStream.close();
+            objectStream.writeObject( xml );
 
-			fileStream.close();
+            objectStream.close();
 
-			guiManager.printSavedInfoToJson();
+            fileStream.close();
 
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
+            guiManager.printSavedInfoToXML();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void writeDataToJson(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite) {
+
+        XStream xstream = new XStream( new JettisonMappedXmlDriver() );
+        xstream.setMode( XStream.NO_REFERENCES );
+        String xml = xstream.toXML( mapOfSpieces );
+
+        try {
+
+            FileOutputStream fileStream = new FileOutputStream( fileToWrite );
+
+            ObjectOutputStream objectStream = new ObjectOutputStream( fileStream );
+
+            objectStream.writeObject( xml );
+
+            objectStream.close();
+
+            fileStream.close();
+
+            guiManager.printSavedInfoToJson();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getSoundForAnimal(String fileName) {
+
+        AudioPlayer audioPlayer = AudioPlayer.player;
+        AudioStream animalSound;
+        try {
+            animalSound = new AudioStream( new FileInputStream( fileName ) );
+            audioPlayer.start(animalSound );
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

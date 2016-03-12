@@ -8,7 +8,7 @@ public class Main {
 		GameManager gameManager = GameManager.getInstance();
 		
 		guiManager.printWelcomeGui();
-		gameManager.selectMainManuOption();
+		gameManager.selectMainMenuOption();
 
 	}
 }

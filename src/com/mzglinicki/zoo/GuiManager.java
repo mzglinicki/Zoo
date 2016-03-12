@@ -46,13 +46,13 @@ public class GuiManager {
 
 		System.out.printf(displayData, day, time);
 		createDash();
-		System.out.printf(displayWelcome, VERTICAL_LINE, Constans.WELCOME_TEXT, VERTICAL_LINE);
+		System.out.printf(displayWelcome, VERTICAL_LINE, Constants.WELCOME_TEXT, VERTICAL_LINE);
 		createDash();
 	}
 
 	public void printYearCounter() {
 		String printYearFormat = "\n\n%s%-5d%s%d%s\n";
-		System.out.printf(printYearFormat, Constans.NUMBER_OF_YEAR, animalManager.getNumOfYear(), Constans.ANIMAL_SATISFACTION,
+		System.out.printf(printYearFormat, Constants.NUMBER_OF_YEAR, animalManager.getNumOfYear(), Constants.ANIMAL_SATISFACTION,
 				animalManager.getAnimalSatisfaction(), PERCENT);
 	}
 
@@ -67,14 +67,15 @@ public class GuiManager {
 
 	public void printMainMenu() {
 
-		String optionsTextformatter = "\n\n %s\n";
+		String optionsTextFormatter = "\n\n %s\n";
 		String optionFormatter = " %-2d%s\n";
 
-		System.out.printf(optionsTextformatter, Constans.CHOOSE_OPTION);
-		System.out.printf(optionFormatter, MainManuOptions.NEW_GAME.ordinal(), Constans.NEW_GAME);
-		System.out.printf(optionFormatter, MainManuOptions.LOAD_LAST_GAME.ordinal(), Constans.LOAD_LAST_GAME);
-		System.out.printf(optionFormatter, MainManuOptions.RULES.ordinal(), Constans.RULES);
-		System.out.printf(optionFormatter, MainManuOptions.CLOSE.ordinal(), Constans.CLOSE);
+		System.out.printf(optionsTextFormatter, Constants.CHOOSE_OPTION);
+		System.out.printf(optionFormatter, MainMenuOptions.NEW_GAME.ordinal(), Constants.NEW_GAME);
+		System.out.printf(optionFormatter, MainMenuOptions.LOAD_LAST_GAME.ordinal(), Constants.LOAD_LAST_GAME);
+		System.out.printf(optionFormatter, MainMenuOptions.RULES.ordinal(), Constants.RULES);
+		System.out.printf(optionFormatter, MainMenuOptions.CREDITS.ordinal(), Constants.CREDITS);
+		System.out.printf(optionFormatter, MainMenuOptions.CLOSE.ordinal(), Constants.CLOSE);
 
 	}
 
@@ -94,7 +95,7 @@ public class GuiManager {
 			}
 			id = ++id % charsPart1.length();
 		}
-		System.out.println(charsPart2 + NEW_LINE + Constans.CONGRATULATION);
+		System.out.println(charsPart2 + NEW_LINE + Constants.CONGRATULATION);
 	}
 
 	public void printInfoAnimalsAmount() {
@@ -105,15 +106,15 @@ public class GuiManager {
 
 		if (counter > ONE_ANIMAL) {
 
-			System.out.println(text.append(Constans.AMOUNT_OF_ANIMALS_TEXT).append(counter).append(Constans.AMOUNT_OF_ANIMALS_PART2));
+			System.out.println(text.append(Constants.AMOUNT_OF_ANIMALS_TEXT).append(counter).append(Constants.AMOUNT_OF_ANIMALS_PART2));
 
 		} else {
-			System.out.println(NEW_LINE + Constans.ONE_ANIMAL_TEXT);
+			System.out.println(NEW_LINE + Constants.ONE_ANIMAL_TEXT);
 		}
 	}
 
 	public void printAmountOdAnimals() {
-		System.out.println(NEW_LINE + Constans.AVAILABLE_SPECIES);
+		System.out.println(NEW_LINE + Constants.AVAILABLE_SPECIES);
 	}
 
 	public void printListOfAvailableSpecies() {
@@ -122,7 +123,7 @@ public class GuiManager {
 
 		for (Species animal : Species.values()) {
 			System.out.println(text.append(animal.ordinal()).append(SPACE).append(animal.getType()));
-			text.delete(0, 10);
+			text.delete(0, 15);
 		}
 	}
 
@@ -140,24 +141,24 @@ public class GuiManager {
 
 	public void printOtherOptions() {
 
-		System.out.println(NEW_LINE + Constans.OTHER_OPTION);
-		System.out.println(TAB + Constans.SHOW_LIST_OF_ANIMALS);
-		System.out.println(TAB + Constans.SHOW_SPECIES_INFO);
-		System.out.println(TAB + Constans.SAVE_TEXT);
-		System.out.println(TAB + Constans.PLAY_MAIN_PANEL);
+		System.out.println(NEW_LINE + Constants.OTHER_OPTION);
+		System.out.println(TAB + Constants.SHOW_LIST_OF_ANIMALS);
+		System.out.println(TAB + Constants.SHOW_SPECIES_INFO);
+		System.out.println(TAB + Constants.SAVE_TEXT);
+		System.out.println(TAB + Constants.PLAY_MAIN_PANEL);
 	}
 
 	public void printPlayActivities() {
-		System.out.println(NEW_LINE + Constans.OTHER_OPTION);
-		System.out.println(TAB + Constans.SPEAK);
-		System.out.println(Constans.PRESS_ENTER);
+		System.out.println(NEW_LINE + Constants.OTHER_OPTION);
+		System.out.println(TAB + Constants.SPEAK);
+		System.out.println(Constants.PRESS_ENTER);
 	}
 
 	public void printListOfAnimals() {
 		
 		StringBuffer text = new StringBuffer();
-		String animalListFormater = " %-4d%-13s%-6d %-8d %s\n";
-		String headlineFormater = "%-4s %-12s %-6s %-8s %s\n";
+		String animalListFormatter = " %-4d%-13s%-6d %-8d %s\n";
+		String headlineFormatter = "%-4s %-12s %-6s %-8s %s\n";
 
 		for (List<Animal> list : animalManager.getMapOfSpieces().values()) {
 
@@ -165,10 +166,10 @@ public class GuiManager {
 			for (Animal animal : list) {
 				if (condition) {
 					System.out.println(animal.getSpecies().getType() + COLON);
-					System.out.printf(headlineFormater, Constans.NUMBER, Constans.NAME, Constans.AGE, Constans.WEIGHT, Constans.SEX);
+					System.out.printf(headlineFormatter, Constants.NUMBER, Constants.NAME, Constants.AGE, Constants.WEIGHT, Constants.SEX);
 					condition = false;
 				}
-				System.out.printf(animalListFormater, list.indexOf(animal) + 1, animal.getName(), animal.getAge(), animal.getWeight(),
+				System.out.printf(animalListFormatter, list.indexOf(animal) + 1, animal.getName(), animal.getAge(), animal.getWeight(),
 						animal.getSex());
 			}
 			System.out.println();
@@ -179,13 +180,13 @@ public class GuiManager {
 	}
 
 	public void getNumOfSpeciesOrOtherOption() {
-		System.out.println(Constans.GIVE_NUM_OF_SPEC);
+		System.out.println(Constants.GIVE_NUM_OF_SPEC);
 	}
 
 	public void printFood() {
 		StringBuffer text = new StringBuffer();
 
-		System.out.println(NEW_LINE + Constans.TYPE_OF_FOOD);
+		System.out.println(NEW_LINE + Constants.TYPE_OF_FOOD);
 
 		for (Food food : Food.values()) {
 			System.out.println(text.append(food.ordinal()).append(SPACE).append(food.getType()));
@@ -197,7 +198,7 @@ public class GuiManager {
 
 		StringBuffer text = new StringBuffer();
 
-		System.out.println(NEW_LINE + Constans.SELECT_ACTIVITY + NEW_LINE);
+		System.out.println(NEW_LINE + Constants.SELECT_ACTIVITY + NEW_LINE);
 
 		for (Activities activities : Activities.values()) {
 			System.out.println(text.append(activities.ordinal()).append(SPACE).append(activities.getActivity()));
@@ -219,41 +220,41 @@ public class GuiManager {
 	}
 
 	public void printSelectionText() {
-		System.out.println(Constans.INIT_SELECT_SPECIES);
+		System.out.println(Constants.INIT_SELECT_SPECIES);
 	}
 
 	public void printInfoInitAmount() {
-		System.out.println(Constans.INITIAL_AMOUNT_OF_ANIMALS_TEXT);
+		System.out.println(Constants.INITIAL_AMOUNT_OF_ANIMALS_TEXT);
 	}
 
 	public void printLoseInfo() {
 
-		System.out.print(Constans.LOSE_INFO);
+		System.out.print(Constants.LOSE_INFO);
 	}
 
-	public void printInfoAboutPregrency(Animal animal, Animal dad) {
+	public void printInfoAboutPregnancy(Animal animal, Animal dad) {
 
-		System.out.println(animal.getName() + Constans.IN_PRAGNANCY + dad.getName());
+		System.out.println(animal.getName() + Constants.IN_PRAGNANCY + dad.getName());
 	}
 
 	public void printIncorrectDataFormat() {
-		System.out.println(Constans.INCORRECT_DATA_FARMAT);
+		System.out.println(Constants.INCORRECT_DATA_FARMAT);
 	}
 	
 	public void printUnavailableSpeciesInfo(){
-		System.out.println(Constans.UNAVAILABLE_SPECIES);
+		System.out.println(Constants.UNAVAILABLE_SPECIES);
 	}
 
 	public void printUnknownSpecies() {
-		System.out.println(Constans.UNKNOWN_SPECIES);
+		System.out.println(Constants.UNKNOWN_SPECIES);
 	}
 
 	public void printIncorrectType() {
-		System.err.println(Constans.INCORRECT_TYPE);
+		System.err.println(Constants.INCORRECT_TYPE);
 	}
 
 	public void printLackOfCages() {
-		System.err.println(Constans.LACK_OF_CAGES);
+		System.err.println(Constants.LACK_OF_CAGES);
 	}
 
 	public void printInfoForInit() {
@@ -272,11 +273,11 @@ public class GuiManager {
 		printYearCounter();
 		System.out.println();
 		printInfoAnimalsAmount();
-		System.out.println(Constans.IN_LAST_MONTH);
-		System.out.println(Constans.BORN + babiesCounter + Constans.ANIMALS);
-		System.out.println(Constans.DIED + corpseCounter);
+		System.out.println(Constants.IN_LAST_MONTH);
+		System.out.println(Constants.BORN + babiesCounter + Constants.ANIMALS);
+		System.out.println(Constants.DIED + corpseCounter);
 		if (boughtAnimal == BUY_ANIMAL) {
-			System.out.println(Constans.BOUGHT);
+			System.out.println(Constants.BOUGHT);
 		}
 		System.out.println();
 	}
@@ -288,39 +289,40 @@ public class GuiManager {
 	}
 
 	public void printTooLowNumberOfAnimal() {
-		System.out.println(Constans.TOO_LOW_NUMBER);
+		System.out.println(Constants.TOO_LOW_NUMBER);
 	}
 
 	public void printIntoAboutSpecies(int length, int minWeight, int maxAge, String type) {
-		System.out.println(Constans.LENGTH_OF_PREGNANCY + length);
-		System.out.println(Constans.MINIMAL_WEIGHT + minWeight);
-		System.out.println(Constans.MAX_AGE + maxAge);
-		System.out.println(Constans.FAVORITE_FOOD + type);
+		System.out.println(Constants.LENGTH_OF_PREGNANCY + length);
+		System.out.println(Constants.MINIMAL_WEIGHT + minWeight);
+		System.out.println(Constants.MAX_AGE + maxAge);
+		System.out.println(Constants.FAVORITE_FOOD + type);
 
-	}
-
-	public void printAnimalSound(Species species) {
-		System.out.println(animalManager.getMapOfSpieces().get(species).get(0).getSound());
 	}
 
 	public void printRules() {
 
-		System.out.println(Constans.RULES_TEXT_PART_1 + animalManager.getLengthOfGama() + Constans.RULES_TEXT_PART_2);
+		System.out.println(Constants.RULES_TEXT_PART_1 + animalManager.getLengthOfGama() + Constants.RULES_TEXT_PART_2);
 	}
 
 	public void printSavedInfo() {
-		System.out.println(Constans.DATA_ARE_SAVED);
+		System.out.println(Constants.DATA_ARE_SAVED);
 	}
 	
 	public void printSavedInfoToXML() {
-		System.out.println(Constans.DATA_ARE_SAVED_TO_XML);
+		System.out.println(Constants.DATA_ARE_SAVED_TO_XML);
 	}
 	
 	public void printSavedInfoToJson() {
-		System.out.println(Constans.DATA_ARE_SAVED_TO_JSON);
+		System.out.println(Constants.DATA_ARE_SAVED_TO_JSON);
 	}
 
 	public void printTooHeightNumberOfAnimal() {
-		System.out.println(Constans.TOO_HEIGHT_NUMBER);
+		System.out.println(Constants.TOO_HEIGHT_NUMBER);
+	}
+
+	public void showCredits() {
+		System.out.println(Constants.CREDITS_TEXT);
+		System.out.println(Constants.AUTHOR);
 	}
 }

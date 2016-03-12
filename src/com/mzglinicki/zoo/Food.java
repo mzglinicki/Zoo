@@ -1,7 +1,7 @@
 package com.mzglinicki.zoo;
 
 public enum Food {
-	FISH(Constans.FISH), MEAN(Constans.MEAT), LEAVES(Constans.LEAVES), MAUSE(Constans.MOUSE), RABBIT(Constans.RABBIT);
+	FISH(Constants.FISH), MEAN(Constants.MEAT), LEAVES(Constants.LEAVES), MAUSE(Constants.MOUSE), RABBIT(Constants.RABBIT), ORANGE(Constants.ORANGE);
 
 	private String type;
 

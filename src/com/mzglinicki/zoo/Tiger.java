@@ -15,11 +15,11 @@ public class Tiger extends Animal {
 	private int ageOfPragnancyStart;
 
 	public Tiger() {
-		super(Species.TIGER, TIGER_SPEED, Constans.TIGER_SOUND, Food.RABBIT);
+		super(Species.TIGER, TIGER_SPEED, Constants.TIGER_SOUND, Food.RABBIT);
 	}
 
 	private Tiger(int age) {
-		super(Species.TIGER, TIGER_SPEED, Constans.TIGER_SOUND, Food.RABBIT);
+		super(Species.TIGER, TIGER_SPEED, Constants.TIGER_SOUND, Food.RABBIT);
 		this.age = age;
 	}
 
@@ -37,7 +37,7 @@ public class Tiger extends Animal {
 
 	@Override
 	public String getSound() {
-		return Constans.TIGER_SOUND;
+		return Constants.TIGER_SOUND;
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class Tiger extends Animal {
 	}
 
 	@Override
-	public void setWeightAftrForage(Food type) {
+	public void setWeightAfterForage(Food type) {
 
 		if (type == getFood()) {
 			this.weight = this.getWeight() + VALUE_OF_FOOD;

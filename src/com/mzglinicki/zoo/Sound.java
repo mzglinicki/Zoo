@@ -2,7 +2,7 @@ package com.mzglinicki.zoo;
 
 public enum Sound {
 
-	SPEAK(Constans.GIVE_SOUND);
+	SPEAK(Constants.GIVE_SOUND);
 
 	private final String speak;
 

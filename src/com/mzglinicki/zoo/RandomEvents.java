@@ -24,10 +24,10 @@ public class RandomEvents {
 
 			if (animal.getSex().equals(Sex.FEMALE.getSexToString())) {
 				animal.setPregnancy(true, animal.getAge());
-				guiManager.printInfoAboutPregrency(animal, secondAnimal);
+				guiManager.printInfoAboutPregnancy(animal, secondAnimal);
 			} else {
 				secondAnimal.setPregnancy(true, animal.getAge());
-				guiManager.printInfoAboutPregrency(secondAnimal, animal);
+				guiManager.printInfoAboutPregnancy(secondAnimal, animal);
 			}
 		}
 	}

@@ -1,34 +1,45 @@
 package com.mzglinicki.zoo;
 
 public enum Species {
-	TIGER(Constans.TIGRES) {
-		@Override
-		public Animal getAnimal() {
-			return new Tiger();
-		}
-	},
-	SNAKE(Constans.SNAKES) {
-		@Override
-		public Animal getAnimal() {
-			return new Snake();
-		}
-	},
-	GIRAFFE(Constans.GIRAFFE) {
-		@Override
-		public Animal getAnimal() {
-			return new Giraffe();
-		}
-	};
+    TIGER(Constants.TIGRES) {
+        @Override
+        public Animal getAnimal() {
+            return new Tiger();
+        }
+    },
+    SNAKE(Constants.SNAKES) {
+        @Override
+        public Animal getAnimal() {
+            return new Snake();
+        }
+    },
+    GIRAFFE(Constants.GIRAFFE) {
+        @Override
+        public Animal getAnimal() {
+            return new Giraffe();
+        }
+    },
+    PTERODACTYL(Constants.PTERODACTYL) {
+        @Override
+        public Animal getAnimal() {
+            return new Pterodactyl();
+        }
+    }, SUGAR_GLIDER(Constants.SUGAR_GLIDER) {
+        @Override
+        public Animal getAnimal() {
+            return new SugarGlider();
+        }
+    };
 
-	private String type;
+    private String type;
 
-	private Species(final String type) {
-		this.type = type;
-	}
+    private Species(final String type) {
+        this.type = type;
+    }
 
-	public abstract Animal getAnimal();
+    public abstract Animal getAnimal();
 
-	public String getType() {
-		return type;
-	}
+    public String getType() {
+        return type;
+    }
 }

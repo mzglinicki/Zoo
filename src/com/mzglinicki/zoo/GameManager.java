@@ -1,14 +1,5 @@
 package com.mzglinicki.zoo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -32,11 +23,11 @@ public class GameManager {
 		return gameManage;
 	}
 
-	public void selectMainManuOption() {
+	public void selectMainMenuOption() {
 
 		Scanner userInput = new Scanner(System.in);
 		String input;
-		int num = 0;
+		int num;
 
 		guiManager.printMainMenu();
 
@@ -45,9 +36,9 @@ public class GameManager {
 				input = userInput.nextLine();
 				num = Integer.parseInt(input);
 
-				for (MainManuOptions optiont : MainManuOptions.values()) {
-					if (num == optiont.ordinal()) {
-						optiont.doOption();
+				for (MainMenuOptions options : MainMenuOptions.values()) {
+					if (num == options.ordinal()) {
+						options.doOption();
 					}
 				}
 			} catch (NumberFormatException uncorrectFormat) {
@@ -91,7 +82,7 @@ public class GameManager {
 	}
 
 	public void playRegularGame() {
-		boolean condition = true;
+		boolean condition;
 
 		do {
 			animalCreator.selectSpecies();
@@ -106,7 +97,8 @@ public class GameManager {
 		} else {
 			guiManager.printAnimationAfterWin();
 		}
-		selectMainManuOption();
+		selectMainMenuOption();
 	}
+
 
 }

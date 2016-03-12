@@ -2,8 +2,8 @@ package com.mzglinicki.zoo;
 
 public enum Sex {
 
-	MALE(Constans.NAMES_FOR_MALE, Constans.SEX_MALE), 
-	FEMALE(Constans.NAMES_FOR_FEMALE, Constans.SEX_FEMALE);
+	MALE(Constants.NAMES_FOR_MALE, Constants.SEX_MALE),
+	FEMALE(Constants.NAMES_FOR_FEMALE, Constants.SEX_FEMALE);
 
 	private String names;
 	private String sex;

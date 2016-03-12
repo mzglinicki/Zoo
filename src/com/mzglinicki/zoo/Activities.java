@@ -2,28 +2,28 @@ package com.mzglinicki.zoo;
 
 public enum Activities {
 
-	EAT(Constans.FEED) {
+	EAT(Constants.FEED) {
 		@Override
 		public void selectActivity(Species keyToSpeciesList) {
 
 			animalsManager.update(this, keyToSpeciesList, AnimalsManager.getInstance().getUserInputForForage());
 		}
 	},
-	WALK(Constans.GO_FOR_WALK) {
+	WALK(Constants.GO_FOR_WALK) {
 		@Override
 		public void selectActivity(Species keyToSpeciesList) {
 			animalsManager.playForSpecies(keyToSpeciesList);
 			animalsManager.update(this, keyToSpeciesList, -1);
 		}
 	},
-	LEISURE(Constans.PLAY) {
+	LEISURE(Constants.PLAY) {
 		@Override
 		public void selectActivity(Species keyToSpeciesList) {
 
 			animalsManager.update(this, keyToSpeciesList, -1);
 		}
 	},
-	BUY_ANIMAL(Constans.BUY_ANIMAL) {
+	BUY_ANIMAL(Constants.BUY_ANIMAL) {
 		@Override
 		public void selectActivity(Species keyToSpeciesList) {
 			int buyAnimal = 100;			//:)
