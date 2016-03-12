@@ -18,7 +18,7 @@ public class Constans {
 	public static final String AMOUNT_OF_ANIMALS_TEXT = "Nasze ZOO posiada ";
 	public static final String AMOUNT_OF_ANIMALS_PART2 = " mieszkañców!";
 	public static final String ONE_ANIMAL_TEXT = "Nasze ZOO posiada zaledwie jednego mieszkañca!";
-	public static final String INIT_SELECT_SPECIES = "Wpisz numer gatunków, które chcesz mieæ w ZOO."; // OK
+	public static final String INIT_SELECT_SPECIES = "Wpisz po przecinku numery gatunków, które chcesz mieæ w ZOO."; // OK
 	public static final String SELECT_SPECIES = "Wpisz numer gatunku, którym chcesz siê zaj¹æ w tym roku."; // OK
 	public static final String GIVE_NUM_OF_SPEC = "Podaj numer gatunku aby przejœæ dalej, b¹dŸ wybierz inn¹ opcjê."; // OK
 	public static final String INITIAL_AMOUNT_OF_ANIMALS_TEXT = "Ile chcesz mieæ zwierz¹t?"; // OK
@@ -35,7 +35,7 @@ public class Constans {
 	public static final String GO_FOR_WALK = "IdŸ na spacer";
 	public static final String PLAY = "Zastaw zwierzêta na wybiegu";
 	public static final String SELECT_ACTIVITY = "Podaj numer czynnoœæ: ";
-	public static final String IN_PRAGNANCY = " jest w ci¹¿y!!!";
+	public static final String IN_PRAGNANCY = " jest w ci¹¿y z ";
 	public static final String BUY_ANIMAL = "Kup zwierze";
 	public static final String DEATH_INFO = "Jedno ze zwierz¹t niestety umar³o";
 
@@ -89,6 +89,8 @@ public class Constans {
 	public static final String SAVE_TEXT = "zapisz - aby zapisaæ grê";
 	public static final String DATA_SER = "data.ser";
 	public static final String DATA_ARE_SAVED = "Dane o ZOO zosta³y zapisane";
+	public static final String DATA_ARE_SAVED_TO_XML = "Dane o ZOO zosta³y zapisane w formacie XML";
+	public static final String DATA_ARE_SAVED_TO_JSON = "Dane o ZOO zosta³y zapisane w formacie Json";
 
 	// Errors
 	public static final String INCORRECT_DATA_FARMAT = "Nie do koñca wiem o co chodzi";
@@ -98,6 +100,8 @@ public class Constans {
 	public static final String LOSE_INFO = "Przegra³eœ! W ZOO nie mieszka ¿aden zwierz";
 	public static final String NOP = "NI MA TAIEGO!";
 	public static final String TOO_LOW_NUMBER = "Poda³eœ zbyt ma³¹ wartoœæ";
+	public static final String TOO_HEIGHT_NUMBER = "Poda³eœ zbyt du¿¹ wartoœæ";
+	public static final String UNAVAILABLE_SPECIES = "Nie mamy w ZOO zwierz¹t tego gatunku";
 
 	// Updata
 	public static final String IN_LAST_MONTH = "W ostatnich miesi¹cach:";
@@ -115,5 +119,7 @@ public class Constans {
 	public static final String NAMES_FOR_MALE = "imie_samiec.txt";
 	public static final String NAMES_FOR_FEMALE = "imie_samica.txt";
 	public static final String CONGRATULATION = "BRAWO! WYGRA£EŒ!";
+	public static final String DATA_XML_TXT = "data_xml.txt";
+	public static final String DATA_JSON_TXT = "data_json.txt";
 
 }

@@ -154,7 +154,8 @@ public class GuiManager {
 	}
 
 	public void printListOfAnimals() {
-
+		
+		StringBuffer text = new StringBuffer();
 		String animalListFormater = " %-4d%-13s%-6d %-8d %s\n";
 		String headlineFormater = "%-4s %-12s %-6s %-8s %s\n";
 
@@ -230,13 +231,17 @@ public class GuiManager {
 		System.out.print(Constans.LOSE_INFO);
 	}
 
-	public void printInfoAboutPregrency(Animal animal) {
+	public void printInfoAboutPregrency(Animal animal, Animal dad) {
 
-		System.out.println(animal.getName() + Constans.IN_PRAGNANCY);
+		System.out.println(animal.getName() + Constans.IN_PRAGNANCY + dad.getName());
 	}
 
 	public void printIncorrectDataFormat() {
-		System.err.println(Constans.INCORRECT_DATA_FARMAT);
+		System.out.println(Constans.INCORRECT_DATA_FARMAT);
+	}
+	
+	public void printUnavailableSpeciesInfo(){
+		System.out.println(Constans.UNAVAILABLE_SPECIES);
 	}
 
 	public void printUnknownSpecies() {
@@ -304,6 +309,18 @@ public class GuiManager {
 	}
 
 	public void printSavedInfo() {
-		System.out.println("Dane o ZOO zosta³y zapisane");
+		System.out.println(Constans.DATA_ARE_SAVED);
+	}
+	
+	public void printSavedInfoToXML() {
+		System.out.println(Constans.DATA_ARE_SAVED_TO_XML);
+	}
+	
+	public void printSavedInfoToJson() {
+		System.out.println(Constans.DATA_ARE_SAVED_TO_JSON);
+	}
+
+	public void printTooHeightNumberOfAnimal() {
+		System.out.println(Constans.TOO_HEIGHT_NUMBER);
 	}
 }

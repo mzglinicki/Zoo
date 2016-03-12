@@ -1,6 +1,5 @@
 package com.mzglinicki.zoo;
 
-
 public class Snake extends Animal implements Swimming {
 
 	private static final int SNAKE_SPEED = 6;
@@ -78,7 +77,7 @@ public class Snake extends Animal implements Swimming {
 		if (!areWeEating) {
 			noOfyearsWithoutFood++;
 		}
-		return this.weight = areWeEating ? this.weight : (this.weight - 2 * noOfyearsWithoutFood/2);
+		return this.weight = areWeEating ? this.weight : (this.weight - 2 * noOfyearsWithoutFood / 2);
 	}
 
 	@Override
@@ -114,10 +113,10 @@ public class Snake extends Animal implements Swimming {
 	public int getAnimalSatisfaction() {
 		int satisfaction_pointer_1 = 20;
 		int satisfaction_pointer_2 = 100;
-		
-		if(weight> MIN_WEIGHT+satisfaction_pointer_1){
+
+		if (weight > MIN_WEIGHT + satisfaction_pointer_1) {
 			return satisfaction_pointer_2;
-		} else{
+		} else {
 			return (weight * satisfaction_pointer_2) / (MIN_WEIGHT + satisfaction_pointer_1);
 		}
 	}

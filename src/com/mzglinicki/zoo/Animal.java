@@ -8,6 +8,8 @@ import java.util.Random;
 
 public abstract class Animal implements Comparable<Animal>, Serializable {
 
+	private static final long serialVersionUID = 8350452777352202050L;
+	
 	private final int MAX_INIT_AGE = 30;
 	protected Random generator = new Random();
 	protected static Map<Species, List<Animal>> mapOfbabies = new HashMap<>();

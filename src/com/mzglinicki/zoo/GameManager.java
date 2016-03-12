@@ -18,6 +18,7 @@ public class GameManager {
 	private static GameManager gameManage = null;
 	private GuiManager guiManager = GuiManager.getInstance();
 	private AnimalsManager animalCreator = AnimalsManager.getInstance();
+	
 	private int numOfYear = 0;
 	private int animalsSatisfaction = 0;
 
@@ -56,8 +57,8 @@ public class GameManager {
 	}
 
 	public void startNewGame() {
-
-		animalCreator.loadExternalFiles();
+		
+		ExternalFilesManager.getInstance().loadNamas();
 		guiManager.printYearCounter();
 		animalCreator.initialization();
 		animalCreator.selectSpecies();
@@ -66,9 +67,10 @@ public class GameManager {
 	}
 
 	public void loadLastGame() {
+		ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
 
-		Map<Species, List<Animal>> loadHashMap = readData(GameInputOptions.WRITE_DATA_SER.getValue());
-		readData(GameInputOptions.WRITE_DATA_SER.getValue());
+		Map<Species, List<Animal>> loadHashMap = fileManager.readData(GameInputOptions.IO_DATA_SER.getValue());
+		fileManager.readData(GameInputOptions.IO_DATA_SER.getValue());
 
 		animalCreator.setNumOfYear(numOfYear);
 		animalCreator.setAnimalSatisfaction(animalsSatisfaction);
@@ -86,71 +88,6 @@ public class GameManager {
 
 	public void closeGame() {
 		System.exit(0);
-	}
-
-	public void writeDataToFile(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite, int year, int satisfaction) {
-
-		ArrayList<Integer> data = new ArrayList<Integer>();
-
-		data.add(year);
-		data.add(satisfaction);
-
-		try {
-
-			FileOutputStream fileStream = new FileOutputStream(fileToWrite);
-
-			ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
-
-			objectStream.writeObject(data);
-
-			objectStream.writeObject(mapOfSpieces);
-
-			objectStream.close();
-
-			fileStream.close();
-
-			guiManager.printSavedInfo();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-
-	public Map<Species, List<Animal>> readData(String fileName) {
-
-		ArrayList<Integer> data = new ArrayList<Integer>();
-
-		Map<Species, List<Animal>> loadHashMap = null;
-
-		try {
-
-			FileInputStream fileInput = new FileInputStream(fileName);
-
-			ObjectInputStream objectStream = new ObjectInputStream(fileInput);
-
-			try {
-
-				data = (ArrayList<Integer>) objectStream.readObject();
-
-				loadHashMap = (HashMap<Species, List<Animal>>) objectStream.readObject();
-
-				objectStream.close();
-				fileInput.close();
-
-				numOfYear = data.get(0);
-				animalsSatisfaction = data.get(1);
-
-				return loadHashMap;
-			} catch (ClassNotFoundException e) {
-				e.printStackTrace();
-			}
-
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 	public void playRegularGame() {

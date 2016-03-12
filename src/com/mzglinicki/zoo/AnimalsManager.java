@@ -17,7 +17,7 @@ public class AnimalsManager {
 	private final String DELIMITER = ",";
 	private final int MAX_AMOUNT_OF_ANIMALS = 400;
 	private final int MIN_AMOUNT_OF_ANIMALS = 1;
-	private final int LENGTH_OF_GAME = 20;
+	private final int LENGTH_OF_GAME = 4;
 	private final int MIN_SATISFACTION = 30;
 	private static AnimalsManager animalsManager = null;
 	private static GuiManager guiManager = GuiManager.getInstance();
@@ -27,8 +27,6 @@ public class AnimalsManager {
 	private Random generator = new Random();
 	private Map<Species, List<Animal>> mapOfSpieces = new HashMap<>();
 
-	private List<String> maleNames = new ArrayList<String>();
-	private List<String> femaleNames = new ArrayList<String>();
 	private int numOfYear = 0;
 	private int animalSatisfaction;
 
@@ -63,41 +61,13 @@ public class AnimalsManager {
 		return MIN_SATISFACTION;
 	}
 
-	public List<String> readFile(String fileName) {
-
-		List<String> listOfNames = new ArrayList<String>();
-
-		try {
-			BufferedReader namesForMale = new BufferedReader(new FileReader(fileName));
-
-			String line = namesForMale.readLine();
-
-			while (line != null) {
-				String[] namesLine = line.split(DELIMITER);
-				for (String name : namesLine) {
-					listOfNames.add(name.trim());
-				}
-				line = namesForMale.readLine();
-			}
-			namesForMale.close();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return listOfNames;
-	}
-
-	public void loadExternalFiles() {
-
-		femaleNames = readFile(Sex.FEMALE.getNames());
-		maleNames = readFile(Sex.MALE.getNames());
-	}
-
 	public String setName(String sex) {
 
-		return sex.equals(Sex.FEMALE.getSexToString()) ? femaleNames.get(generator.nextInt(femaleNames.size())) : maleNames.get(generator
-				.nextInt(maleNames.size()));
+		ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
+
+		return sex.equals(Sex.FEMALE.getSexToString()) ? fileManager.getMapOfNames().get(Sex.FEMALE)
+				.get(generator.nextInt(fileManager.getMapOfNames().get(Sex.FEMALE).size())) : fileManager.getMapOfNames().get(Sex.MALE)
+				.get(generator.nextInt(fileManager.getMapOfNames().get(Sex.MALE).size()));
 	}
 
 	public Map<Species, List<Animal>> initialization() {
@@ -167,6 +137,7 @@ public class AnimalsManager {
 
 		String input = null;
 		boolean condition = true;
+		int num = 0;
 		guiManager.printListOfSpeciesWithAmount();
 		guiManager.getNumOfSpeciesOrOtherOption();
 		guiManager.printOtherOptions();
@@ -174,7 +145,7 @@ public class AnimalsManager {
 		do {
 			try {
 				input = userInput.nextLine();
-				int num = Integer.parseInt(input);
+				num = Integer.parseInt(input);
 
 				availableActivities(returnKeyToSpeciesList(num));
 				condition = false;
@@ -183,7 +154,11 @@ public class AnimalsManager {
 				followOptionalChoice(input);
 
 			} catch (ArrayIndexOutOfBoundsException e) {
-				guiManager.printTooLowNumberOfAnimal();
+				if (num < 0) {
+					guiManager.printTooLowNumberOfAnimal();
+				} else {
+					guiManager.printTooHeightNumberOfAnimal();
+				}
 			}
 		} while (condition);
 	}
@@ -195,7 +170,10 @@ public class AnimalsManager {
 		} else if (input.equals(GameInputOptions.MAIN_PANEL.getValue())) {
 			gameManager.selectMainManuOption();
 		} else if (input.equals(GameInputOptions.SAVE.getValue())) {
-			gameManager.writeDataToFile(mapOfSpieces, GameInputOptions.WRITE_DATA_SER.getValue(), getNumOfYear(), getAnimalSatisfaction());
+			ExternalFilesManager.getInstance().writeDataToFile(mapOfSpieces, GameInputOptions.IO_DATA_SER.getValue(), getNumOfYear(),
+					getAnimalSatisfaction());
+			ExternalFilesManager.getInstance().writeDataToXML(mapOfSpieces, GameInputOptions.DATA_XML.getValue());
+			ExternalFilesManager.getInstance().writeDataToJson(mapOfSpieces, GameInputOptions.DATA_JSON.getValue());
 		} else {
 			getInfoAboutSpecies(input);
 		}
@@ -213,7 +191,7 @@ public class AnimalsManager {
 				}
 			}
 		} catch (NumberFormatException e) {
-			guiManager.printIncorrectDataFormat();
+			guiManager.printUnavailableSpeciesInfo();
 		}
 	}
 
@@ -326,8 +304,9 @@ public class AnimalsManager {
 				if (checkDeath(animal)) {
 					listOfAnimal.remove(i);
 					corpseCounter++;
+				} else {
+					satisfaction += animal.getAnimalSatisfaction();
 				}
-				satisfaction += animal.getAnimalSatisfaction();
 			}
 		}
 		satisfaction /= (getAmountOfAnimal());
