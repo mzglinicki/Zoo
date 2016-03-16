@@ -123,7 +123,7 @@ public class Constants {
     public static final String DATA_XML_TXT = "data_xml.txt";
     public static final String DATA_JSON_TXT = "data_json.txt";
 
-    public static final String CREDITS_TEXT = "Created by:";
-    public static final String AUTHOR = "Marcin";
+    public static final String CREDITS_TEXT = "Autor:";
+    public static final String AUTHOR = "Marcin Z";
 
 }

@@ -7,13 +7,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class AnimalsManager {
 
     private final String DELIMITER = ",";
     private final int MAX_AMOUNT_OF_ANIMALS = 400;
     private final int MIN_AMOUNT_OF_ANIMALS = 1;
-    private final int LENGTH_OF_GAME = 20;
+    private final int LENGTH_OF_GAME = 10;
     private final int MIN_SATISFACTION = 30;
     private static AnimalsManager animalsManager = null;
     private static GuiManager guiManager = GuiManager.getInstance();
@@ -24,8 +26,13 @@ public class AnimalsManager {
     private Random generator = new Random();
     private Map<Species, List<Animal>> mapOfSpieces = new HashMap<>();
 
-    private int numOfYear = 0;
+    private int numOfYear;
     private int animalSatisfaction;
+
+    private AnimalsManager() {
+        this.numOfYear = 0;
+        this.animalSatisfaction = 0;
+    }
 
     public static AnimalsManager getInstance() {
         if (animalsManager == null) {
@@ -38,7 +45,7 @@ public class AnimalsManager {
         return mapOfSpieces;
     }
 
-    public void setMapOfSpieces(Map<Species, List<Animal>> loadHashMap) {
+    public void setMapOfSpecies(Map<Species, List<Animal>> loadHashMap) {
         mapOfSpieces = loadHashMap;
     }
 
@@ -75,7 +82,7 @@ public class AnimalsManager {
 
         int amountOfAnimal = getInitAmount();
 
-        for (int i = 0; i < amountOfAnimal; i++) {
+        IntStream.range( 0, amountOfAnimal ).forEach( number -> {
             Species species = listOfSpecies.get( generator.nextInt( listOfSpecies.size() ) );
 
             List<Animal> animals = mapOfSpieces.get( species );
@@ -85,7 +92,7 @@ public class AnimalsManager {
             }
             animals.add( species.getAnimal() );
             Collections.sort( animals );
-        }
+        } );
         guiManager.printInfoAnimalsAmount();
         return mapOfSpieces;
     }
@@ -146,11 +153,13 @@ public class AnimalsManager {
 
                 availableActivities( returnKeyToSpeciesList( num ) );
                 condition = false;
-            } catch (NumberFormatException uncorrectFormat) {
+
+            } catch (NumberFormatException incorrectFormat) {
 
                 followOptionalChoice( input );
 
             } catch (ArrayIndexOutOfBoundsException e) {
+
                 if (num < 0) {
                     guiManager.printTooLowNumberOfAnimal();
                 } else {
@@ -167,8 +176,8 @@ public class AnimalsManager {
         } else if (input.equals( GameInputOptions.MAIN_PANEL.getValue() )) {
             gameManager.selectMainMenuOption();
         } else if (input.equals( GameInputOptions.SAVE.getValue() )) {
-            ExternalFilesManager.getInstance().writeDataToFile( mapOfSpieces, GameInputOptions.IO_DATA_SER.getValue(), getNumOfYear(),
-                    getAnimalSatisfaction() );
+            ExternalFilesManager.getInstance().writeDataToFile( mapOfSpieces, GameInputOptions.IO_DATA_SER.getValue(), numOfYear,
+                    animalSatisfaction );
             ExternalFilesManager.getInstance().writeDataToXML( mapOfSpieces, GameInputOptions.DATA_XML.getValue() );
             ExternalFilesManager.getInstance().writeDataToJson( mapOfSpieces, GameInputOptions.DATA_JSON.getValue() );
         } else {
@@ -200,15 +209,12 @@ public class AnimalsManager {
 
     public int getUserInputForForage() {
         GuiManager.getInstance().printFood();
-        String numOfFood = userInput.nextLine();
-        return Integer.parseInt( numOfFood );
+        return Integer.parseInt( userInput.nextLine() );
     }
 
     public void playForAnimal(Animal animal) {
 
-        RandomEvents event = new RandomEvents();
-
-        event.pregnancy( animal );
+        new RandomEvents().pregnancy( animal );
     }
 
     public void playForSpecies(Species species) {
@@ -217,6 +223,7 @@ public class AnimalsManager {
         boolean condition = true;
         do {
             String input = userInput.nextLine();
+
             if (input.equals( Sound.SPEAK.getSpeak() )) {
                 filesManager.getSoundForAnimal( getMapOfSpieces().get( species ).get( 0 ).getSound() );
             } else if (input.isEmpty()) {
@@ -238,9 +245,7 @@ public class AnimalsManager {
 
     public boolean checkDeath(Animal animal) {
 
-        RandomEvents event = new RandomEvents();
-
-        return animal.deathOfOldAge() || animal.starvation() || event.death();
+        return animal.deathOfOldAge() || animal.starvation() || new RandomEvents().death();
     }
 
     public Species returnKeyToSpeciesList(int num) throws ArrayIndexOutOfBoundsException {

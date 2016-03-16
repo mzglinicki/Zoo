@@ -9,8 +9,7 @@ import java.util.Random;
 public abstract class Animal implements Comparable<Animal>, Serializable {
 
 	private static final long serialVersionUID = 8350452777352202050L;
-	
-	private final int MAX_INIT_AGE = 30;
+	private int MAX_INIT_AGE = 30;
 	protected Random generator = new Random();
 	protected static Map<Species, List<Animal>> mapOfbabies = new HashMap<>();
 
@@ -23,15 +22,15 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 	protected Food food;
 	protected String name;
 	protected boolean pregnancy;
-	private Species spieces;
+	private Species species;
 
-	public Animal(final Species spieces, final int speed, final String sound, final Food food) {
-		this.spieces = spieces;
+	public Animal(final Species species, final int speed, final String sound, final Food food) {
+		this.species = species;
 		this.speed = speed;
 		this.sound = sound;
 		this.food = food;
 		this.pregnancy = false;
-		this.sex = setInitialtSex();
+		this.sex = setInitialSex();
 		this.age = getInitialAgeGenerator();
 		this.weight = weightOfNewAnimal();
 		this.name = AnimalsManager.getInstance().setName(this.sex);
@@ -41,11 +40,13 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 
 	public abstract int weightOfNewAnimal();
 
-	public abstract int getSpeed();
-
 	public abstract String getSound();
 
 	public abstract void getInfo();
+
+	public abstract int getSpeed();
+
+	public abstract int getMinWeight();
 
 	public abstract void setWeightAfterForage(Food typeOfFood);
 
@@ -54,8 +55,6 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 	public abstract boolean deathOfOldAge();
 
 	public abstract boolean starvation();
-
-	public abstract int getMinWeight();
 
 	public abstract Animal updateAge();
 
@@ -68,7 +67,7 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 	}
 
 	public Species getSpecies() {
-		return spieces;
+		return species;
 	}
 
 	public int getAge() {
@@ -83,10 +82,6 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 		return weight;
 	}
 
-	public void setAge(int age) {
-		this.age = age;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -96,13 +91,9 @@ public abstract class Animal implements Comparable<Animal>, Serializable {
 		return generator.nextInt(MAX_INIT_AGE) + 1;
 	}
 
-	public String setInitialtSex() {
+	public String setInitialSex() {
 		Random generator = new Random();
 		return generator.nextBoolean() ? Sex.FEMALE.getSexToString() : Sex.MALE.getSexToString();
-	}
-
-	public Map<Species, List<Animal>> getMapOfbabies() {
-		return mapOfbabies;
 	}
 
 	@Override

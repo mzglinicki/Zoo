@@ -10,9 +10,6 @@ public class GameManager {
 	private GuiManager guiManager = GuiManager.getInstance();
 	private AnimalsManager animalCreator = AnimalsManager.getInstance();
 	
-	private int numOfYear = 0;
-	private int animalsSatisfaction = 0;
-
 	private GameManager() {
 	}
 
@@ -49,7 +46,7 @@ public class GameManager {
 
 	public void startNewGame() {
 		
-		ExternalFilesManager.getInstance().loadNamas();
+		ExternalFilesManager.getInstance().loadNames();
 		guiManager.printYearCounter();
 		animalCreator.initialization();
 		animalCreator.selectSpecies();
@@ -61,11 +58,8 @@ public class GameManager {
 		ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
 
 		Map<Species, List<Animal>> loadHashMap = fileManager.readData(GameInputOptions.IO_DATA_SER.getValue());
-		fileManager.readData(GameInputOptions.IO_DATA_SER.getValue());
 
-		animalCreator.setNumOfYear(numOfYear);
-		animalCreator.setAnimalSatisfaction(animalsSatisfaction);
-		animalCreator.setMapOfSpieces(loadHashMap);
+		animalCreator.setMapOfSpecies(loadHashMap);
 
 		guiManager.printHeadlineAfterLoad();
 		animalCreator.selectSpecies();

@@ -23,9 +23,6 @@ public class ExternalFilesManager {
 
     private Map<Sex, List<String>> mapOfNames = new HashMap<>();
 
-    private int numOfYear = 0;
-    private int animalsSatisfaction = 0;
-
     private static ExternalFilesManager fileManager = null;
 
     private ExternalFilesManager() {
@@ -42,7 +39,7 @@ public class ExternalFilesManager {
         return fileManager;
     }
 
-    public void writeDataToFile(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite, int year, int satisfaction) {
+    public void writeDataToFile(Map<Species, List<Animal>> mapOfSpecies, String fileToWrite, int year, int satisfaction) {
 
         List<Integer> data = new ArrayList<>();
 
@@ -57,7 +54,7 @@ public class ExternalFilesManager {
 
             objectStream.writeObject( data );
 
-            objectStream.writeObject( mapOfSpieces );
+            objectStream.writeObject( mapOfSpecies );
 
             objectStream.close();
 
@@ -73,8 +70,8 @@ public class ExternalFilesManager {
     @SuppressWarnings("unchecked")
     public Map<Species, List<Animal>> readData(String fileName) {
 
+        AnimalsManager animalCreator = AnimalsManager.getInstance();
         List<Integer> data = new ArrayList<Integer>();
-
         Map<Species, List<Animal>> loadHashMap = null;
 
         try {
@@ -86,13 +83,11 @@ public class ExternalFilesManager {
             try {
 
                 data = (List<Integer>) objectStream.readObject();
-
+                animalCreator.setNumOfYear(data.get( 0 ));
+                animalCreator.setAnimalSatisfaction(data.get( 1 ));
                 loadHashMap = (HashMap<Species, List<Animal>>) objectStream.readObject();
 
                 fileInput.close();
-
-                numOfYear = data.get( 0 );
-                animalsSatisfaction = data.get( 1 );
 
                 return loadHashMap;
             } catch (ClassNotFoundException e) {
@@ -133,7 +128,7 @@ public class ExternalFilesManager {
         return listOfNames;
     }
 
-    public void loadNamas() {
+    public void loadNames() {
 
         ExternalFilesManager fileManager = ExternalFilesManager.getInstance();
 
@@ -141,10 +136,10 @@ public class ExternalFilesManager {
         mapOfNames.put( Sex.MALE, fileManager.readNames( Sex.MALE.getNames() ) );
     }
 
-    public void writeDataToXML(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite) {
+    public void writeDataToXML(Map<Species, List<Animal>> mapOfSpecies, String fileToWrite) {
 
         XStream xstream = new XStream( new StaxDriver() );
-        String xml = xstream.toXML( mapOfSpieces );
+        String xml = xstream.toXML( mapOfSpecies );
 
         try {
 
@@ -165,11 +160,11 @@ public class ExternalFilesManager {
         }
     }
 
-    public void writeDataToJson(Map<Species, List<Animal>> mapOfSpieces, String fileToWrite) {
+    public void writeDataToJson(Map<Species, List<Animal>> mapOfSpecies, String fileToWrite) {
 
         XStream xstream = new XStream( new JettisonMappedXmlDriver() );
         xstream.setMode( XStream.NO_REFERENCES );
-        String xml = xstream.toXML( mapOfSpieces );
+        String xml = xstream.toXML( mapOfSpecies );
 
         try {
 
